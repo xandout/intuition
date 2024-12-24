@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Single Page App</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            flex-direction: column;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 10px;
+            width: 100%;
+            height: 80%;
+            max-width: 600px;
+            max-height: 600px;
+        }
+        .square {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: transform 0.2s;
+            aspect-ratio: 1 / 1; /* Ensures the squares remain squares */
+        }
+        .square:hover {
+            transform: scale(1.1);
+        }
+        .square:nth-child(1) { background-color: #e74c3c; }
+        .square:nth-child(2) { background-color: #2ecc71; }
+        .square:nth-child(3) { background-color: #3498db; }
+        .square:nth-child(4) { background-color: #f1c40f; }
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+            width: 90%;
+            max-width: 400px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: white;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .stats {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+        .stats table {
+            border-collapse: collapse;
+            width: 80%;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+        .stats th, .stats td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        .stats th {
+            background-color: #3498db;
+            color: white;
+        }
+        .close-btn {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #e74c3c;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid">
+        <div class="square" data-id="0">
+            <div>0</div>
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg>
+            </div>
+        </div>
+        <div class="square" data-id="1">
+            <div>1</div>
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z"/></svg>
+            </div>
+        </div>
+        <div class="square" data-id="2">
+            <div>3</div>
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="m354-287 126-76 126 77-33-144 111-96-146-13-58-136-58 135-146 13 111 97-33 143ZM233-120l65-281L80-590l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Zm247-350Z"/></svg>
+            </div>
+        </div>
+        <div class="square" data-id="3">
+            <div>4</div>
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M180-475q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29Zm180-160q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29Zm240 0q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29Zm180 160q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM266-75q-45 0-75.5-34.5T160-191q0-52 35.5-91t70.5-77q29-31 50-67.5t50-68.5q22-26 51-43t63-17q34 0 63 16t51 42q28 32 49.5 69t50.5 69q35 38 70.5 77t35.5 91q0 47-30.5 81.5T694-75q-54 0-107-9t-107-9q-54 0-107 9t-107 9Z"/></svg>
+            </div>
+        </div>
+    </div>
+    <div class="buttons">
+        <button id="reset">Reset</button>
+        <button id="show-stats">Show Stats</button>
+    </div>
+    <div class="stats">
+        <table>
+            <thead>
+                <tr>
+                    <th>Color</th>
+                    <th>Count</th>
+                    <th>Percentage</th>
+                    <th>Correct Percentage</th>
+                </tr>
+            </thead>
+            <tbody id="stats-body">
+            </tbody>
+        </table>
+        <div class="close-btn">X</div>
+    </div>
+
+    <script>
+        let randomNumber = Math.floor(Math.random() * 4);
+        let choices = [];
+
+        document.querySelectorAll('.square').forEach(square => {
+            square.addEventListener('click', () => {
+                const choice = square.getAttribute('data-id');
+                choices.push({ choice, randomNumber });
+                logStats();
+            });
+        });
+
+        document.getElementById('reset').addEventListener('click', () => {
+            randomNumber = Math.floor(Math.random() * 4);
+            choices = [];
+            console.clear();
+        });
+
+        document.getElementById('show-stats').addEventListener('click', () => {
+            document.querySelector('.grid').style.display = 'none';
+            document.querySelector('.buttons').style.display = 'none';
+            document.querySelector('.stats').style.display = 'flex';
+            updateStatsTable();
+        });
+
+        document.querySelector('.close-btn').addEventListener('click', () => {
+            document.querySelector('.grid').style.display = 'grid';
+            document.querySelector('.buttons').style.display = 'flex';
+            document.querySelector('.stats').style.display = 'none';
+        });
+
+        function logStats() {
+            const counts = [0, 0, 0, 0];
+            const correctCounts = [0, 0, 0, 0];
+            let correctCount = 0;
+
+            choices.forEach(choice => {
+                counts[choice.choice]++;
+                if (choice.choice == choice.randomNumber) {
+                    correctCount++;
+                    correctCounts[choice.choice]++;
+                }
+            });
+
+            const total = choices.length;
+            const percentages = counts.map(count => total ? ((count / total) * 100).toFixed(2) : 0);
+            const correctPercentages = correctCounts.map((count, index) => counts[index] ? ((count / counts[index]) * 100).toFixed(2) : 0);
+            const correctPercentage = total ? ((correctCount / total) * 100).toFixed(2) : 0;
+            const incorrectCount = total - correctCount;
+            const incorrectPercentage = total ? ((incorrectCount / total) * 100).toFixed(2) : 0;
+
+            console.log('Red Count:', counts[0], 'Percentage:', percentages[0] + '%', 'Correct Percentage:', correctPercentages[0] + '%');
+            console.log('Green Count:', counts[1], 'Percentage:', percentages[1] + '%', 'Correct Percentage:', correctPercentages[1] + '%');
+            console.log('Blue Count:', counts[2], 'Percentage:', percentages[2] + '%', 'Correct Percentage:', correctPercentages[2] + '%');
+            console.log('Yellow Count:', counts[3], 'Percentage:', percentages[3] + '%', 'Correct Percentage:', correctPercentages[3] + '%');
+            console.log('Correct Count:', correctCount, 'Percentage:', correctPercentage + '%');
+            console.log('Incorrect Count:', incorrectCount, 'Percentage:', incorrectPercentage + '%');
+        }
+
+        function updateStatsTable() {
+            const counts = [0, 0, 0, 0];
+            const correctCounts = [0, 0, 0, 0];
+            let correctCount = 0;
+
+            choices.forEach(choice => {
+                counts[choice.choice]++;
+                if (choice.choice == choice.randomNumber) {
+                    correctCount++;
+                    correctCounts[choice.choice]++;
+                }
+            });
+
+            const total = choices.length;
+            const percentages = counts.map(count => total ? ((count / total) * 100).toFixed(2) : 0);
+            const correctPercentages = correctCounts.map((count, index) => counts[index] ? ((count / counts[index]) * 100).toFixed(2) : 0);
+            const correctPercentage = total ? ((correctCount / total) * 100).toFixed(2) : 0;
+            const incorrectCount = total - correctCount;
+            const incorrectPercentage = total ? ((incorrectCount / total) * 100).toFixed(2) : 0;
+
+            const statsBody = document.getElementById('stats-body');
+            statsBody.innerHTML = `
+                <tr>
+                    <td>Red</td>
+                    <td>${counts[0]}</td>
+                    <td>${percentages[0]}%</td>
+                    <td>${correctPercentages[0]}%</td>
+                </tr>
+                <tr>
+                    <td>Green</td>
+                    <td>${counts[1]}</td>
+                    <td>${percentages[1]}%</td>
+                    <td>${correctPercentages[1]}%</td>
+                </tr>
+                <tr>
+                    <td>Blue</td>
+                    <td>${counts[2]}</td>
+                    <td>${percentages[2]}%</td>
+                    <td>${correctPercentages[2]}%</td>
+                </tr>
+                <tr>
+                    <td>Yellow</td>
+                    <td>${counts[3]}</td>
+                    <td>${percentages[3]}%</td>
+                    <td>${correctPercentages[3]}%</td>
+                </tr>
+                <tr>
+                    <td colspan="2">Overall Correct</td>
+                    <td colspan="2">${correctPercentage}%</td>
+                </tr>
+                <tr>
+                    <td colspan="2">Overall Incorrect</td>
+                    <td colspan="2">${incorrectPercentage}%</td>
+                </tr>
+            `;
+        }
+    </script>
+</body>
+</html>
