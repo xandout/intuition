@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Predict the color</title>
+    <title>Guess the color</title>
     <style>
         body, html {
             margin: 0;
@@ -124,6 +124,7 @@
     <div class="buttons">
         <button id="reset">Reset</button>
         <button id="show-stats">Show Stats</button>
+        <button id="currentCount"></div>
     </div>
     <div class="stats">
         <table>
@@ -147,8 +148,8 @@
 
         document.querySelectorAll('.square').forEach(square => {
             square.addEventListener('click', () => {
-                randomNumber = Math.floor(Math.random() * 4);
                 const choice = square.getAttribute('data-id');
+                randomNumber = Math.floor(Math.random() * 4);
                 choices.push({ choice, randomNumber });
                 logStats();
             });
@@ -157,6 +158,7 @@
         document.getElementById('reset').addEventListener('click', () => {
             randomNumber = Math.floor(Math.random() * 4);
             choices = [];
+            document.getElementById("currentCont").textContent = 0;
             console.clear();
         });
 
@@ -192,7 +194,7 @@
             const correctPercentage = total ? ((correctCount / total) * 100).toFixed(2) : 0;
             const incorrectCount = total - correctCount;
             const incorrectPercentage = total ? ((incorrectCount / total) * 100).toFixed(2) : 0;
-
+            document.getElementById('currentCount').textContent = total;
             console.log('Red Count:', counts[0], 'Percentage:', percentages[0] + '%', 'Correct Percentage:', correctPercentages[0] + '%');
             console.log('Green Count:', counts[1], 'Percentage:', percentages[1] + '%', 'Correct Percentage:', correctPercentages[1] + '%');
             console.log('Blue Count:', counts[2], 'Percentage:', percentages[2] + '%', 'Correct Percentage:', correctPercentages[2] + '%');
