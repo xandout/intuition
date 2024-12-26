@@ -125,7 +125,7 @@
         <button id="reset">Reset</button>
         <button id="show-stats">Show Stats</button>
     </div>
-    <div id="currentCount"></div>
+    <div class="buttons" id="currentCount"></div>
     <div class="stats">
         <table>
             <thead>
@@ -192,7 +192,7 @@
             const correctPercentage = total ? ((correctCount / total) * 100).toFixed(2) : 0;
             const incorrectCount = total - correctCount;
             const incorrectPercentage = total ? ((incorrectCount / total) * 100).toFixed(2) : 0;
-            document.getElementById('currentCount').text = total;
+            document.getElementById('currentCount').textContent = total;
             console.log('Red Count:', counts[0], 'Percentage:', percentages[0] + '%', 'Correct Percentage:', correctPercentages[0] + '%');
             console.log('Green Count:', counts[1], 'Percentage:', percentages[1] + '%', 'Correct Percentage:', correctPercentages[1] + '%');
             console.log('Blue Count:', counts[2], 'Percentage:', percentages[2] + '%', 'Correct Percentage:', correctPercentages[2] + '%');
