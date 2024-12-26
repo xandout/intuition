@@ -157,6 +157,7 @@
         document.getElementById('reset').addEventListener('click', () => {
             randomNumber = Math.floor(Math.random() * 4);
             choices = [];
+            document.getElementById("currentCont").textContent = 0;
             console.clear();
         });
 
